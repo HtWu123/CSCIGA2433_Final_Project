@@ -43,3 +43,15 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/?ap
 ```
 
 ## How to Run Part4
+### 1.  Initialize ML Models
+Before starting the web server, you must generate the machine learning model files. This script will train the models using the data in `data/medical_insurance_final.csv` and save them to the `saved_models/` folder.
+```bash
+python insurance_pipeline_ml.py
+```
+### 2. Start the Web Server
+Run the Flask application:
+```bash
+python app.py
+```
+### 3. Access the Web Application
+Open a web browser and navigate to `/http://127.0.0.1:5000` to access the web application.
