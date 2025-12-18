@@ -7,13 +7,14 @@ import joblib
 from pathlib import Path
 import certifi
 import os
+from dotenv import load_dotenv
 
 # === 导入训练函数 ===
 from insurance_pipline_ml import train_model
 
 app = Flask(__name__)
 app.secret_key = "super_secret_key_for_session"
-
+load_dotenv()
 # ================= CONFIG =================
 CONNECTION_STRING = os.getenv("MONGODB_URI")
 DB_NAME = "insurance_app_db"
