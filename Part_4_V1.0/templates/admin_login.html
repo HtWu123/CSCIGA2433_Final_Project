@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <style>
+        body { font-family: sans-serif; background: #343a40; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .box { background: white; padding: 40px; border-radius: 8px; width: 300px; text-align: center; }
+        h2 { color: #343a40; }
+        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🛡️ Admin Only</h2>
+        <form method="POST">
+            <input type="password" name="password" placeholder="Enter Admin Password" required>
+            <button type="submit">Access Dashboard</button>
+        </form>
+        <p><a href="/">Back to Home</a></p>
+    </div>
+</body>
+</html>

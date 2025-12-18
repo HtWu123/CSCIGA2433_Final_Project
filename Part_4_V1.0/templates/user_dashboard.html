@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; padding: 30px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;}
+        .logout { color: red; text-decoration: none; font-size: 14px; }
+        
+        .policy-card { background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 5px solid #007bff; margin-bottom: 30px; }
+        .no-policy { background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; }
+        
+        .btn-claim { display: inline-block; background: #dc3545; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+        
+        table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+        td, th { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👋 Welcome, {{ user.email }}</h1>
+            <a href="/logout" class="logout">Logout</a>
+        </div>
+
+        <!-- 1. 保单状态 -->
+        {% if user.is_customer %}
+            <div class="policy-card">
+                <h2>✅ Active Policy</h2>
+                <p><strong>Plan:</strong> {{ user.purchased_plan }}</p>
+                <p><strong>Monthly Premium:</strong> ${{ user.monthly_premium }}</p>
+                <p><strong>Member Since:</strong> {{ user.purchase_date.strftime('%Y-%m-%d') if user.purchase_date else 'N/A' }}</p>
+                
+                <a href="/claim" class="btn-claim">🏥 File a New Claim</a>
+            </div>
+        {% else %}
+            <div class="no-policy">
+                <h2>⚠️ No Active Policy</h2>
+                <p>You have an account but haven't purchased insurance yet.</p>
+                <a href="/" style="color:#007bff">Go to Home to Buy</a>
+            </div>
+        {% endif %}
+
+        <!-- 2. 理赔历史 -->
+        <h3>📑 My Claims History</h3>
+        {% if claims %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in claims %}
+                    <tr>
+                        <td>{{ c.date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ c.reason }}</td>
+                        <td>${{ c.amount }}</td>
+                        <td style="color: orange;">{{ c.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No claims found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

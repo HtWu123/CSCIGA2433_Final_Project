@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f6f9; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #343a40; color: white; }
+        
+        .status-bought { color: green; font-weight: bold; }
+        .btn { padding: 10px 15px; text-decoration: none; border-radius: 4px; color: white; border: none; cursor: pointer; font-size: 14px; }
+        .btn-logout { background: #dc3545; }
+        .btn-retrain { background: #007bff; margin-right: 10px; }
+        .btn-retrain:hover { background: #0056b3; }
+        
+        .flash { padding: 10px; margin-bottom: 20px; border-radius: 4px; color: white; text-align: center; }
+        .flash.success { background: #28a745; }
+        .flash.error { background: #dc3545; }
+        .flash.warning { background: #ffc107; color: black; }
+        
+        .summary-flex { display: flex; gap: 20px; }
+        .summary-box { flex: 1; text-align: center; background: #e9ecef; padding: 15px; border-radius: 5px; }
+        .val { font-size: 24px; font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- 消息提示 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="header">
+            <h1>🛡️ Admin Portal</h1>
+            <div>
+                <!-- Retrain Button -->
+                <form action="/retrain" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-retrain">🔄 Retrain ML Model</button>
+                </form>
+                <a href="/logout" class="btn btn-logout">Logout</a>
+            </div>
+        </div>
+
+        <!-- 财务概览 -->
+        <div class="card">
+            <h2>Financial Overview</h2>
+            <div class="summary-flex">
+                <div class="summary-box">
+                    <div>Total Annual Revenue</div>
+                    <div class="val">${{ "{:,.0f}".format(total_rev) }}</div>
+                </div>
+                <div class="summary-box">
+                    <div>Projected Net Profit</div>
+                    <div class="val" style="color: {{ 'green' if total_profit > 0 else 'red' }}">
+                        ${{ "{:,.0f}".format(total_profit) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 详细用户名单 -->
+        <div class="card">
+            <h2>👥 User Database</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Email</th>
+                        <th>Age/Sex</th>
+                        <th>Smoker</th>
+                        <th>Status</th>
+                        <th>Plan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in all_users %}
+                    <tr>
+                        <td>{{ user.created_at.strftime('%Y-%m-%d') if user.created_at else '-' }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.age }} / {{ user.sex }}</td>
+                        <td>{{ user.smoker_norm }}</td>
+                        <td>
+                            {% if user.is_customer %}
+                                <span class="status-bought">✅ Customer</span>
+                            {% else %}
+                                <span style="color:#999">Lead</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.purchased_plan or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Recommendations</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background-color: #f0f2f5; color: #333; }
+        h1 { text-align: center; }
+        .cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .card { 
+            background: white; width: 280px; border-radius: 12px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; 
+            border-top: 5px solid #6c757d; padding-bottom: 20px; position: relative;
+        }
+        .card.rec { border-top: 5px solid #28a745; transform: scale(1.05); }
+        .plan-name { font-size: 24px; font-weight: bold; margin: 20px 0 10px; }
+        .price { font-size: 32px; color: #007bff; font-weight: bold; }
+        .month { font-size: 14px; color: #777; font-weight: normal; }
+        .features { padding: 0 20px; margin-bottom: 20px; font-size: 14px; color: #555; }
+        .row { display: flex; justify-content: space-between; margin: 8px 0; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px; display: inline-block; border: none; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .tag { background: #28a745; color: white; padding: 5px 10px; border-radius: 0 0 10px 10px; font-size: 12px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); }
+    </style>
+</head>
+<body>
+    <h1>Recommended Plans for {{ user_name }}</h1>
+    
+    <div class="cards">
+        {% for plan_name, info in details.items() %}
+        <div class="card {% if plan_name == rec %}rec{% endif %}">
+            {% if plan_name == rec %}<div class="tag">✨ BEST MATCH</div>{% endif %}
+            
+            <div class="plan-name">{{ plan_name }}</div>
+            <div class="price">${{ "%.0f"|format(info.monthly) }}<span class="month">/mo</span></div>
+            
+            <div class="features">
+                <div class="row"><span>Deductible</span> <span>${{ info.deductible }}</span></div>
+                <div class="row"><span>Copay</span> <span>${{ info.copay }}</span></div>
+                <div class="row"><span>Est. Annual</span> <span>${{ "%.0f"|format(info.annual) }}</span></div>
+                <p><em>"{{ info.desc }}"</em></p>
+            </div>
+
+            <form action="/buy" method="POST">
+                <input type="hidden" name="plan" value="{{ plan_name }}">
+                <input type="hidden" name="price" value="{{ info.monthly }}">
+                <!-- Pass the existing user ID -->
+                <input type="hidden" name="user_id" value="{{ user_id }}">
+                <button type="submit" class="btn">Select Plan</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

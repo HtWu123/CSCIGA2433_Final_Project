@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File a Claim</title>
+    <style>
+        body { font-family: sans-serif; background: #f8f9fa; padding: 40px; }
+        .box { background: white; max-width: 500px; margin: 0 auto; padding: 30px; border-radius: 10px; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>📑 File a New Claim</h2>
+        <p>This claim will be linked to your account.</p>
+
+        <form method="POST">
+            <label>Claim Amount ($):</label>
+            <input type="number" step="0.01" name="amount" required>
+            
+            <label>Reason / Diagnosis:</label>
+            <textarea name="reason" rows="3" required></textarea>
+            
+            <button type="submit">Submit Claim</button>
+        </form>
+        
+        <p style="text-align:center;"><a href="/dashboard">Cancel & Return to Dashboard</a></p>
+    </div>
+</body>
+</html>

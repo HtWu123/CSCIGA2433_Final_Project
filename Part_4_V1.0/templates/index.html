@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Insurance</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .top-nav { text-align: right; margin-bottom: 20px; }
+        .top-nav a { margin-left: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        h1 { text-align: center; color: #2c3e50; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        
+        button { width: 100%; padding: 14px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 18px; margin-top: 30px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav">
+            <a href="/login">User Login</a>
+            <a href="/admin_login">Admin Login</a>
+        </div>
+
+        <h1>🏥 AI Insurance Assessment</h1>
+        <p style="text-align:center; color:#666;">Get a quote in seconds. Create your account below.</p>
+
+        <form method="POST">
+            <div class="form-grid">
+                <!-- Account Info -->
+                <div class="full-width">
+                    <label>Email (Login ID):</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="full-width">
+                    <label>Create Password:</label>
+                    <input type="password" name="password" required placeholder="Create a password to manage your policy">
+                </div>
+
+                <!-- Personal Info -->
+                <div>
+                    <label>Age:</label>
+                    <input type="number" name="age" value="30" required>
+                </div>
+                <div>
+                    <label>Sex:</label>
+                    <select name="sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label>BMI:</label>
+                    <input type="number" step="0.1" name="bmi" value="24.0" required>
+                </div>
+                <div>
+                    <label>Region:</label>
+                    <select name="region">
+                        <option value="southwest">Southwest</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="northwest">Northwest</option>
+                        <option value="northeast">Northeast</option>
+                    </select>
+                </div>
+
+                <!-- Habits -->
+                <div>
+                    <label>Smoking Status:</label>
+                    <select name="smoker">
+                        <option value="never">Never</option>
+                        <option value="former">Former</option>
+                        <option value="current">Current</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Smoking Years:</label>
+                    <input type="number" name="smoking_years" value="0">
+                </div>
+                <div>
+                    <label>Alcohol Frequency:</label>
+                    <select name="alcohol_freq">
+                        <option value="never">Never</option>
+                        <option value="occasional">Occasional</option>
+                        <option value="daily">Daily</option>
+                    </select>
+                </div>
+                
+                <!-- Medical -->
+                <div>
+                    <label>Systolic BP:</label>
+                    <input type="number" name="systolic_bp" value="120" required>
+                </div>
+                <div>
+                    <label>Diastolic BP:</label>
+                    <input type="number" name="diastolic_bp" value="80" required>
+                </div>
+                <div>
+                    <label>Visits Last Year:</label>
+                    <input type="number" name="visits_last_year" value="1" required>
+                </div>
+                <div class="full-width">
+                    <label>Chronic Diseases:</label>
+                    <input type="number" name="diseases" value="0" required>
+                </div>
+
+                <div class="full-width">
+                    <input type="checkbox" name="newsletter" id="news" checked>
+                    <label for="news" style="display:inline; font-weight:normal;"> Receive health tips.</label>
+                </div>
+            </div>
+
+            <button type="submit">See Quotes & Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>

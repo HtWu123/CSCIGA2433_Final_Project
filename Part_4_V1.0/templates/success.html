@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f9; }
+        .box { background: white; display: inline-block; padding: 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 500px; }
+        h1 { color: #28a745; margin: 0; font-size: 50px; }
+        .id-box { background: #eee; padding: 15px; font-family: monospace; font-size: 20px; letter-spacing: 2px; margin: 20px 0; border-radius: 5px; }
+        a { color: #007bff; text-decoration: none; margin: 10px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>✅</h1>
+        <h2>Purchase Successful!</h2>
+        <p>You have subscribed to the <strong>{{ plan }}</strong> plan.</p>
+        
+        <p>Please save your Member ID for future claims:</p>
+        <div class="id-box">{{ user_id }}</div>
+        
+        <p><small>A confirmation email has been sent.</small></p>
+        
+        <a href="/">Return Home</a>
+        <a href="/claim">File a Claim</a>
+    </div>
+</body>
+</html>
