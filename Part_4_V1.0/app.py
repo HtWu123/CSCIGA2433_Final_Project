@@ -6,6 +6,7 @@ import datetime
 import joblib
 from pathlib import Path
 import certifi
+import os
 
 # === 导入训练函数 ===
 from insurance_pipline_ml import train_model
@@ -14,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = "super_secret_key_for_session"
 
 # ================= CONFIG =================
-CONNECTION_STRING = 'mongodb+srv://wht:wht@cluster0.d0fd0ty.mongodb.net/?appName=Cluster0'
+CONNECTION_STRING = os.getenv("MONGODB_URI")
 DB_NAME = "insurance_app_db"
 USERS_COL = "customers" 
 CLAIMS_COL = "claims"
@@ -37,7 +38,6 @@ except Exception as e:
     claims_collection = None
 
 # ================= LOAD MODELS FUNCTION =================
-# 把加载模型封装成函数，方便重新加载
 SAVE_DIR = Path("./saved_models")
 premium_pipe = None
 risk_pipe = None

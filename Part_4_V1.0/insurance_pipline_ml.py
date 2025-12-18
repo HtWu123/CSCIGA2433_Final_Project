@@ -38,11 +38,11 @@ def train_model(new_data_df=None):
         df_csv.columns = [c.strip() for c in df_csv.columns]
     else:
         df_csv = pd.DataFrame()
-        print("⚠️ 警告: 原始 CSV 文件未找到，将仅使用新数据训练。")
+        print(" no CSV")
 
     # 2. 合并新数据 (如果有)
     if new_data_df is not None and not new_data_df.empty:
-        print(f"📥 合并新数据: {len(new_data_df)} 条记录")
+        print(f"new data: {len(new_data_df)} records")
         # 确保新数据列名与 CSV 一致
         # 假设 MongoDB 数据已经清理好列名
         df = pd.concat([df_csv, new_data_df], ignore_index=True)
@@ -50,7 +50,7 @@ def train_model(new_data_df=None):
         df = df_csv
 
     if df.empty:
-        return "❌ 训练失败: 没有数据可用"
+        return "No data available for training."
 
     # 3. 特征工程 (处理 smoker)
     # 确保 smoker 列存在
