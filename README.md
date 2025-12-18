@@ -1,7 +1,8 @@
-# CSCIGA2433_Final_Project
+# NYU CSCIGA2433_Final_Project
 database systems management final project
 
-Haotong Wu hw2933 \\
+Haotong Wu hw2933
+
 Yujun Yao yy4107
 
 This repository contains the final project for the CSCIGA2433 Database System Management course.
