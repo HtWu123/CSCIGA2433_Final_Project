@@ -1,7 +1,7 @@
 # CSCIGA2433_Final_Project
-database system management final project
+database systems management final project
 
-Haotong Wu hw2933
+Haotong Wu hw2933 \\
 Yujun Yao yy4107
 
 This repository contains the final project for the CSCIGA2433 Database System Management course.
@@ -54,4 +54,4 @@ Run the Flask application:
 python app.py
 ```
 ### 3. Access the Web Application
-Open a web browser and navigate to `/http://127.0.0.1:5000` to access the web application.
+Open a web browser and navigate to `http://127.0.0.1:5000` to access the web application.
