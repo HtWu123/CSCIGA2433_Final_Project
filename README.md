@@ -6,28 +6,27 @@ Yujun Yao yy4107
 
 This repository contains the final project for the CSCIGA2433 Database System Management course.
 
-##Code Structure
-Part_4_V1.0/
-├── app.py                         
-├── insurance_pipline_ml.py        
-├── requirements.txt               
-│
-├── data/                          
-│   └── medical_insurance_final.csv
-│
-├── saved_models/                
-│   ├── premium_pipe.joblib       
-│   ├── risk_model.joblib           
-│   ├── feature_defaults.joblib   
-│   └── features_list.joblib        
-│
-└── templates/                     
-    ├── index.html             
-    ├── results.html             
-    ├── success.html               
-    ├── login.html                
-    ├── user_dashboard.html       
-    ├── claims.html              
-    ├── admin_login.html         
-    └── admin.html               
 
+
+Part_4_V1.0/
+│
+├── app.py                          # 🚀 Main Application (Flask)
+├── insurance_pipline_ml.py         # 🧠 ML Training Pipeline
+├── requirements.txt                # 📦 Dependencies
+│
+├── data/                           # 📂 Data Storage
+│   └── medical_insurance_final.csv #    - Historical dataset
+│
+├── saved_models/                   # 💾 Serialized Models (Auto-generated)
+│   ├── premium_pipe.joblib         #    - Premium regressor
+│   ├── risk_model.joblib           #    - Risk classifier
+│   └── ...
+│
+└── templates/                      # 🎨 Frontend (HTML)
+    ├── index.html                  #    - Survey Form
+    ├── results.html                #    - Quote Display
+    ├── admin.html                  #    - Admin Dashboard
+    └── ... (other html files)
+
+
+🚀 Key Features
