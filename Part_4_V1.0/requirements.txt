@@ -6,3 +6,5 @@ lightgbm
 joblib
 pymongo
 certifi
+dnspython
+python-dotenv
