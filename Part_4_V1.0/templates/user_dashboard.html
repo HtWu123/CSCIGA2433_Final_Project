@@ -8,8 +8,17 @@
         .header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;}
         .logout { color: red; text-decoration: none; font-size: 14px; }
         
+        /* 消息提示框 */
+        .flash-messages { margin-bottom: 20px; }
+        .flash { padding: 10px; background: #d4edda; color: #155724; border-radius: 5px; margin-bottom: 5px; }
+        .flash.error { background: #f8d7da; color: #721c24; }
+        
         .policy-card { background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 5px solid #007bff; margin-bottom: 30px; }
-        .no-policy { background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; }
+        
+        /* 未购买保险时的样式 */
+        .no-policy { background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; text-align: center; }
+        .btn-buy-now { display: inline-block; background: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; transition: background 0.3s; }
+        .btn-buy-now:hover { background: #218838; }
         
         .btn-claim { display: inline-block; background: #dc3545; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
         
@@ -19,6 +28,18 @@
 </head>
 <body>
     <div class="container">
+        
+        <!-- 消息闪现 -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
         <div class="header">
             <h1>👋 Welcome, {{ user.email }}</h1>
             <a href="/logout" class="logout">Logout</a>
@@ -37,36 +58,41 @@
         {% else %}
             <div class="no-policy">
                 <h2>⚠️ No Active Policy</h2>
-                <p>You have an account but haven't purchased insurance yet.</p>
-                <a href="/" style="color:#007bff">Go to Home to Buy</a>
+                <p>You have an account but currently hold no active insurance plan.</p>
+                <p>Get a new AI assessment and purchase a plan now.</p>
+                
+                <!-- 这个链接现在点进去，因为已经登录了，所以 app.py 会知道是更新数据，而不是报错 -->
+                <a href="/" class="btn-buy-now">👉 Get Quote & Buy Insurance</a>
             </div>
         {% endif %}
 
         <!-- 2. 理赔历史 -->
-        <h3>📑 My Claims History</h3>
-        {% if claims %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Reason</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for c in claims %}
-                    <tr>
-                        <td>{{ c.date.strftime('%Y-%m-%d') }}</td>
-                        <td>{{ c.reason }}</td>
-                        <td>${{ c.amount }}</td>
-                        <td style="color: orange;">{{ c.status }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No claims found.</p>
+        {% if user.is_customer %}
+            <h3>📑 My Claims History</h3>
+            {% if claims %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Reason</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in claims %}
+                        <tr>
+                            <td>{{ c.date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ c.reason }}</td>
+                            <td>${{ c.amount }}</td>
+                            <td style="color: orange;">{{ c.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="color:#666; margin-top:10px;">No claims submitted yet.</p>
+            {% endif %}
         {% endif %}
     </div>
 </body>
